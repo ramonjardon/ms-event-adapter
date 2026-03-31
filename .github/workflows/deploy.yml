@@ -1,0 +1,45 @@
+name: Build and Deploy Native Image
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # No necesitamos Setup-Java porque el Dockerfile usa Mandrel internamente
+      - name: Build Native Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+
+      # Escaneo de la imagen generada antes de subirla
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/${{ github.repository }}:latest'
+          format: 'table'
+          exit-code: '1' # Rompe el build si hay vulnerabilidades CRITICAL o HIGH
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Login to GHCR
+        if: success()
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker Image
+        if: success()
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
