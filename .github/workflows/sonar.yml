@@ -16,11 +16,11 @@ jobs:
         with:
           fetch-depth: 0 # Sonar necesita el historial para el análisis de "New Code"
 
-      - name: Set up JDK 21
+      - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: '25'
+          distribution: 'oracle' # O 'graalvm' si prefieres
           cache: 'maven'
 
       - name: Cache SonarCloud packages
