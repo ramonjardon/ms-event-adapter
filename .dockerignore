@@ -1,0 +1,34 @@
+# === Git e IDEs ===
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+*.iml
+
+# === Maven (IMPORTANTE) ===
+# Ignoramos el target local para que Mandrel compile desde cero en el contenedor
+target/
+**/target/
+.quarkus/
+# No ignoramos pom.xml ni src/ porque el Dockerfile multi-stage LOS NECESITA
+
+# === Infraestructura ===
+docker-compose.yml
+compose.yml
+Dockerfile*
+kubernetes/
+helm/
+
+# === Secretos y Basura del SO ===
+*.env
+.env*
+secrets/
+.DS_Store
+Thumbs.db
+
+# === Logs y Documentación ===
+*.log
+logs/
+docs/
+*.md
