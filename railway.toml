@@ -1,2 +1,7 @@
+[build]
+strategy = "docker" 
+# Esto le dice a Railway: "No busques un Dockerfile, usa la imagen que te doy"
+
 [deploy]
 image = "ghcr.io/ramonjardon/ms-event-adapter:latest"
+restartPolicyType = "ON_FAILURE"
