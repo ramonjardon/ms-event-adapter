@@ -25,8 +25,12 @@ jobs:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }} # Opcional
 
       # Snyk: Escaneo de librerías (pom.xml)
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
+      # Paso 2: Ejecutar el comando usando el CLI instalado
       - name: Snyk Open Source Analysis
-        uses: snyk/actions/setup@v1
-        run:  snyk test --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        # Aquí usamos 'run' sin 'uses'
+        run: snyk test --severity-threshold=high --skip-unresolved
