@@ -19,6 +19,13 @@
 
     <dependencyManagement>
         <dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-bom</artifactId>
+            <version>4.1.132.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency> 
             <dependency>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
@@ -26,13 +33,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-bom</artifactId>
-            <version>4.1.132.Final</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>            
+           
         </dependencies>
     </dependencyManagement>
 
@@ -64,7 +65,14 @@
             <artifactId>quarkus-micrometer-registry-otlp</artifactId>
             <version>3.5.0</version>
         </dependency>
-
+    <dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-codec-http</artifactId>
+    </dependency>
+    <dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-codec-http2</artifactId>
+    </dependency>
     </dependencies>
 
     <build>
