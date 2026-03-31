@@ -26,8 +26,7 @@ jobs:
 
       # Snyk: Escaneo de librerías (pom.xml)
       - name: Snyk Open Source Analysis
-        uses: snyk/actions/maven@master
+        uses: snyk/actions/setup@v1
+        run:  snyk test --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
