@@ -1,0 +1,2 @@
+[deploy]
+image = "ghcr.io/ramonjardon/ms-event-adapter:latest"
